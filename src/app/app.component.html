@@ -7,7 +7,7 @@
 </ul>
 
 <div class="example-container" cdkDropListGroup>
-  <ngx-masonry [ordered]="true" [options]="masonryOptions">
+  <ngx-masonry  [options]="masonryOptions" #masonry>
   <div class="grid-sizer"></div>
     <ng-container *ngFor="let item of items; let i = index">
       <div

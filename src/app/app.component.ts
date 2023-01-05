@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import {
   CdkDragDrop,
   CdkDragEnter,
   moveItemInArray,
 } from '@angular/cdk/drag-drop';
+import { NgxMasonryComponent } from 'ngx-masonry';
 
 @Component({
   selector: 'my-app',
@@ -11,7 +12,9 @@ import {
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  public items: Array<any> = ['1', 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+  @ViewChild('masonry', { read: NgxMasonryComponent })
+  masonry: NgxMasonryComponent;
+  public items: Array<any> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
   masonryOptions = {
     itemSelector: '.grid-item',
     columnWidth: '.grid-sizer',
@@ -20,6 +23,7 @@ export class AppComponent {
     transitionDuration: '0.8s',
     stagger: 500,
   };
+  constructor(private cdr: ChangeDetectorRef) {}
   add() {
     this.items.push(this.items.length + 1);
   }
@@ -28,19 +32,21 @@ export class AppComponent {
     this.items.sort(function () {
       return 0.5 - Math.random();
     });
+    this.masonry.reloadItems();
+    this.masonry.layout();
   }
   onDropped(e: CdkDragDrop<any>) {
     const dragItem = e.item;
     const dragItemSourceDropList = e.item.dropContainer;
-    const dragIndex = e.item.data;
     const dropItem = e.container.getSortedItems()[0];
     const dropList = e.container;
-    const dropIndex = e.container.data;
     this.items = this.swapItemsInArray(
       this.items,
-      dragItemSourceDropList.data,
+      dragItem.data,
       dropList.data
     );
+    this.masonry.reloadItems();
+    this.masonry.layout();
   }
   dragEntered(e: CdkDragEnter<number>) {
     const dragItem = e.item;
