@@ -1,0 +1,49 @@
+<h1>Angular 11: Drag & Drop with a flex-wrap</h1>
+
+<button (click)="add()">Add</button> <button (click)="shuffle()">Shuffle</button
+><br />
+<ul class="example-list">
+  <li *ngFor="let item of items">{{ item }}</li>
+</ul>
+
+<div class="example-container" cdkDropListGroup>
+  <ngx-masonry [ordered]="true" [options]="masonryOptions">
+  <div class="grid-sizer"></div>
+    <ng-container *ngFor="let item of items; let i = index">
+      <div
+        *ngIf="item === 4; else other"
+        ngxMasonryItem
+        class="list list-wide grid-item grid-item--fullwidth"
+        cdkDropList
+        [cdkDropListData]="item"
+      >
+        <div
+          cdkDrag
+          [cdkDragData]="i"
+          (cdkDragEntered)="dragEntered($event)"
+          class="example-box"
+        >
+          {{ item }}
+        </div>
+      </div>
+      <ng-template #other>
+        <div
+          ngxMasonryItem
+          class="list list grid-item"
+          cdkDropList
+          [cdkDropListData]="item"
+        >
+          <div
+            cdkDrag
+            [cdkDragData]="item"
+            (cdkDragEntered)="dragEntered($event)"
+            (cdkDragDropped)="onDropped($event)"
+            class="example-box"
+          >
+            {{ item }}
+          </div>
+        </div>
+      </ng-template>
+    </ng-container>
+  </ngx-masonry>
+</div>
