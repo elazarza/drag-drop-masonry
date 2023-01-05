@@ -45,23 +45,23 @@ export class AppComponent {
       dragItem.data,
       dropList.data
     );
+    console.log(this.items);
     this.masonry.reloadItems();
     this.masonry.layout();
   }
   dragEntered(e: CdkDragEnter<number>) {
-    const dragItem = e.item;
-    const dragItemSourceDropList = e.item.dropContainer;
-    const dragIndex = e.item.data;
-    const dropItem = e.container.getSortedItems()[0];
-    const dropList = e.container;
-    const dropIndex = e.container.data;
-
-    const dropListElement = dropList.element.nativeElement;
-    const dropItemElement = dropItem.element.nativeElement;
-    const dragItemSourceDropListElement =
-      dragItemSourceDropList.element.nativeElement;
-    dropListElement.removeChild(dropItemElement);
-    dragItemSourceDropListElement.appendChild(dropItemElement);
+    // const dragItem = e.item;
+    // const dragItemSourceDropList = e.item.dropContainer;
+    // const dragIndex = e.item.data;
+    // const dropItem = e.container.getSortedItems()[0];
+    // const dropList = e.container;
+    // const dropIndex = e.container.data;
+    // const dropListElement = dropList.element.nativeElement;
+    // const dropItemElement = dropItem.element.nativeElement;
+    // const dragItemSourceDropListElement =
+    //   dragItemSourceDropList.element.nativeElement;
+    // dropListElement.removeChild(dropItemElement);
+    // dragItemSourceDropListElement.appendChild(dropItemElement);
   }
   swapItemsInArray(arr, firstItem, secondItem): any[] {
     const firstIndex = arr.findIndex((a) => a === firstItem);

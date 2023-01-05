@@ -7,25 +7,27 @@
 </ul>
 
 <div class="example-container" cdkDropListGroup>
-  <ngx-masonry  [options]="masonryOptions" #masonry>
-  <div class="grid-sizer"></div>
+  <ngx-masonry [options]="masonryOptions" #masonry>
+    <div class="grid-sizer"></div>
     <ng-container *ngFor="let item of items; let i = index">
-      <div
-        *ngIf="item === 4; else other"
-        ngxMasonryItem
-        class="list list-wide grid-item grid-item--fullwidth"
-        cdkDropList
-        [cdkDropListData]="item"
-      >
+      <ng-container *ngIf="item === 4; else other">
         <div
-          cdkDrag
-          [cdkDragData]="i"
-          (cdkDragEntered)="dragEntered($event)"
-          class="example-box"
+          ngxMasonryItem
+          class="list list-wide grid-item grid-item--fullwidth"
+          cdkDropList
+          [cdkDropListData]="item"
         >
-          {{ item }}
+          <div
+            cdkDrag
+            [cdkDragData]="item"
+            (cdkDragEntered)="dragEntered($event)"
+            (cdkDragDropped)="onDropped($event)"
+            class="example-box"
+          >
+            {{ item }}
+          </div>
         </div>
-      </div>
+      </ng-container>
       <ng-template #other>
         <div
           ngxMasonryItem
